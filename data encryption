@@ -1,0 +1,31 @@
+#include <stdio.h>
+void encryptDecrypt(char *msg, int key, int mode) {
+	for(int i = 0; msg[i] != '\0'; i++) {
+		char ch = msg[i];
+		if (ch >= 'A' && ch <= 'Z')
+		msg[i] = ((ch -'A' +(mode * key) + 26) % 26) + 'A';
+		else if (ch >= 'a' && ch <= 'z')
+		msg[i] = ((ch-'a' + (mode * key) + 26) % 26) + 'a';
+}
+
+}
+
+int main() {
+char msg[100];
+int key;
+
+printf("Enter message: ");
+fgets(msg, sizeof(msg), stdin);
+
+printf("Enter key: ");
+scanf("%d", &key);
+
+encryptDecrypt(msg, key, 1);
+printf("Encrypted: %s", msg);
+
+encryptDecrypt(msg, key, -1);
+printf("Decrypted: %s", msg);
+
+return 0;
+
+}
