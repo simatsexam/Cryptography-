@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main() {
+    char msg[100], enc[100], dec[100];
+    char key[27] = "phqgiumeaylnofdxjkrcvstzwb"; // 26 letters + null terminator
+    int i, j;
+
+    printf("Enter message (lowercase only): ");
+    gets(msg);
+
+    // Encrypt
+    for(i = 0; msg[i]; i++) {
+        if(msg[i] >= 'a' && msg[i] <= 'z')
+            enc[i] = key[msg[i] - 'a'];
+        else
+            enc[i] = msg[i];
+    }
+    enc[i] = '\0';
+
+    // Decrypt
+    for(i = 0; enc[i]; i++) {
+        if(enc[i] >= 'a' && enc[i] <= 'z') {
+            for(j = 0; j < 26; j++)
+                if(enc[i] == key[j]) break;
+            dec[i] = 'a' + j;
+        } else
+            dec[i] = enc[i];
+    }
+    dec[i] = '\0';
+
+    printf("Encrypted: %s\nDecrypted: %s\n", enc, dec);
+    return 0;
+}
