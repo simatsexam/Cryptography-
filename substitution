@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char msg[100], key[27] = "QWERTYUIOPASDFGHJKLZXCVBNM";
+    char enc[100], dec[100];
+    int i, j;
+
+    printf("Enter message: ");
+    gets(msg);
+
+    // Encrypt
+    for(i = 0; msg[i]; i++) {
+        if(msg[i] >= 'A' && msg[i] <= 'Z')
+            enc[i] = key[msg[i] - 'A'];
+        else if(msg[i] >= 'a' && msg[i] <= 'z')
+            enc[i] = key[msg[i] - 'a'] + 32;
+        else
+            enc[i] = msg[i];
+    }
+    enc[i] = '\0';
+    printf("Encrypted: %s\n", enc);
+
+    // Decrypt
+    for(i = 0; enc[i]; i++) {
+        if(enc[i] >= 'A' && enc[i] <= 'Z') {
+            for(j = 0; j < 26; j++)
+                if(enc[i] == key[j]) break;
+            dec[i] = 'A' + j;
+        } else if(enc[i] >= 'a' && enc[i] <= 'z') {
+            for(j = 0; j < 26; j++)
+                if(enc[i] == key[j] + 32) break;
+            dec[i] = 'a' + j;
+        } else
+            dec[i] = enc[i];
+    }
+    dec[i] = '\0';
+    printf("Decrypted: %s\n", dec);
+
+    return 0;
+}
