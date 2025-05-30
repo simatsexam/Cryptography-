@@ -1,0 +1,18 @@
+#include <stdio.h>
+int power(int base, int exp, int mod) {
+    int res = 1;
+    while (exp--) res = (res * base) % mod;
+    return res;
+}
+
+int main() {
+    int p = 23, g = 5;           // public values
+    int a = 6, b = 15;           // private keys
+    int A = power(g, a, p);      // public key A
+    int B = power(g, b, p);      // public key B
+    int keyA = power(B, a, p);   // shared key at A
+    int keyB = power(A, b, p);   // shared key at B
+
+    printf("Shared Key: %d\n", keyA);
+    return 0;
+}
